@@ -3,7 +3,7 @@ using CompAndDel.Pipes;
 using CompAndDel.Filters;
 
 
-namespace CompAndDel
+namespace CompAndDel.Filters
 {
     public static class Program
     {
