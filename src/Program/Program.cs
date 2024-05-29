@@ -51,5 +51,24 @@ namespace CompAndDel.Filters
 
             pipeSerialA.Send(picture);
         }
+        public static void Parte3()
+        {
+            // Parte 3
+
+            PictureProvider provider = new PictureProvider();
+
+            PipeNull pipeNull = new PipeNull();
+
+            PipeSerial pipeSerialE = new(new FilterTwitter("Hola twitter", @"beer-final3.jpg"), pipeNull);
+            PipeSerial pipeSerialD = new(new FilterNegative(), pipeSerialE);
+            PipeSerial pipeSerialC = new(new FilterTwitter("Hola twitter", @"beer-intermediate3.jpg"), pipeSerialD);
+            PipeSerial pipeSerialB = new(new FilterGreyscale(), pipeSerialC);
+            PipeSerial pipeSerialA = new(new FilterTwitter("Hola twitter", @"beer-initial3.jpg"), pipeSerialB);
+
+            IPicture picture = provider.GetPicture(@"beer.jpg");
+
+            pipeSerialA.Send(picture);
+        }
+
     }
 }
