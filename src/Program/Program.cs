@@ -11,6 +11,7 @@ namespace CompAndDel.Filters
         {
             Parte1();
             Parte2();
+            Parte3();
             
         }
 
