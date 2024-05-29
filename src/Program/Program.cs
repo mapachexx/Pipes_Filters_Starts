@@ -10,15 +10,13 @@ namespace CompAndDel.Filters
         static void Main(string[] args)
         {
             Parte1();
+            Parte2();
             
         }
 
-        /// <summary>
-        /// Parte 1 
-        /// </summary>
         public static void Parte1()
         {
-
+            // Parte 2
 
             PipeNull pipeNull = new PipeNull();
 
@@ -33,6 +31,25 @@ namespace CompAndDel.Filters
             IPicture modifiedImage = pipeSerial2.Send(picture);
 
             provider.SavePicture(modifiedImage, @"modifiedBeer1.jpg");
+        }
+        public static void Parte2()
+        {
+            // Parte 2
+
+
+            PictureProvider provider = new PictureProvider();
+
+            PipeNull pipeNull = new PipeNull();
+
+            PipeSerial pipeSerialE = new(new FilterPersistente(@"luke-final2.jpg"), pipeNull);
+            PipeSerial pipeSerialD = new(new FilterNegative(), pipeSerialE);
+            PipeSerial pipeSerialC = new(new FilterPersistente(@"luke-intermediate2.jpg"), pipeSerialD);
+            PipeSerial pipeSerialB = new(new FilterGreyscale(), pipeSerialC);
+            PipeSerial pipeSerialA = new(new FilterPersistente(@"luke-initial2.jpg"), pipeSerialB);
+
+            IPicture picture = provider.GetPicture(@"luke.jpg");
+
+            pipeSerialA.Send(picture);
         }
     }
 }
